@@ -16,7 +16,7 @@ app.get('/:id/', (req, res)=>{
         else return res.status(400).send("Bad request");
 
     } catch(err){
-        res.render('error', {error: err})
+        res.render('error', {error: err});
     }
 
 });
@@ -35,7 +35,7 @@ app.put('/:id/', (req, res)=>{
     try{
         res.status(200).send(req.params.id);
     } catch(err){
-        res.render('error', {error: err})
+        res.render('error', {error: err});
     }
 });
 
@@ -48,7 +48,7 @@ app.delete('/:id/', (req, res)=>{
             res.status(200).send(query_params);
         } else return res.status(400).send('Bad request');
     } catch(err){
-        res.render('error', {error: err})
+        res.render('error', {error: err});
     }
 
 });
