@@ -12,7 +12,7 @@ mongoose.connect(db, {useNewUrlParser: true})
 
 app.get('/:id', getElement);
 app.post('/add', addElement);
-app.delete("/:id", deleteElement)
+app.delete("/:id", deleteElement);
 
 
 let port = process.env.PORT || 8088;

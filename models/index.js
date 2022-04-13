@@ -3,14 +3,25 @@ import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
 
-const schema = new Schema(
+const pets = new Schema(
     {
-    Owner: String,
-    Pet: String
+    Pet: String,
+    PetName: String
 });
 
 
-const Pets = mongoose.model('Pets', schema)
+
+const owners = new Schema({
+
+});
+
+const kennel = new Schema({
+
+});
+
+const Pets = mongoose.model('Pets', pets);
+const Owners = mongoose.model('Owners', owners);
+const Kennel = mongoose.model('Kennel', kennel);
 
 
-export default Pets;
+export { Pets, Owners, Kennel };
