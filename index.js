@@ -1,7 +1,7 @@
 import express from "express"
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
-import {getElement, addElement, deleteElement} from './models/controllers/controller.js'
+import {getElement, addElement, deleteElement, buyPet} from './controllers/controller.js'
 
 const app = express();
 app.use(bodyParser.json());
@@ -14,6 +14,7 @@ app.get('/:id', getElement);
 app.post('/add', addElement);
 app.delete("/:id", deleteElement);
 
+app.get('/:pet/:buyer', buyPet)
 
 let port = process.env.PORT || 8088;
 app.listen(port, ()=>{
