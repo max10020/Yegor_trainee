@@ -28,13 +28,5 @@ const deleteElement = async (req, res)=> {
     } catch(err) {res.render('error', {error: err})}
 };
 
-const buyPet = async (req, res)=>{
-    try{
-        const { buyer } = req.params;
-        const { pet } = req.params;
 
-        res.send('Purchased successfully')
-    } catch(err) {return res.render('error', {error: err})}
-};
-
-export { getElement, addElement, deleteElement, buyPet };
+export { getElement, addElement, deleteElement };
