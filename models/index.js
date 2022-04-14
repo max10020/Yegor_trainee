@@ -6,7 +6,6 @@ const PetsSchema = new Schema(
     {
     name: String,
     kind: String,
-    hasHealthIssues: Boolean,
     owner: {type: Schema.Types.ObjectId, ref: 'Owners', required: false},
     kennel: {type: Schema.Types.ObjectId, ref: 'Kennel', required: false}
 });
@@ -14,15 +13,13 @@ const PetsSchema = new Schema(
 const OwnersSchema = new Schema({
     name: String,
     phone: Number,
-    pet: {type: Schema.Types.ObjectId, ref: 'Pets', required: false}
+    pet: [{type: Schema.Types.ObjectId, ref: 'Pets', required: false}]
 });
 
 const KennelSchema = new Schema({
     company: String,
-    address: String,
-    rating: String,
-    phoneNumber: {countryCode: Number, phone: Number},
-    pet: {type: Schema.Types.ObjectId, ref: 'Pets'}
+    rating: Number,
+    pet: [{type: Schema.Types.ObjectId, ref: 'Pets'}]
 });
 
 const Pets = mongoose.model('Pets', PetsSchema);

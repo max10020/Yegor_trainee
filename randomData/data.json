@@ -1,0 +1,26 @@
+{
+  "pets": {
+    "name": [
+      "Aardvark",
+      "Albatross",
+      "Alligator",
+      "Bunbuns",
+      "Buster",
+      "Butter Babe",
+      "Buttercup",
+      "Muffy",
+      "Muggles",
+      "Muncie"
+    ],
+    "kind": ["dog", "cat", "rabbit", "imaginary"]
+  },
+  "owners": {
+    "name": ["Maksym", "Yegor", "Andrew"],
+    "phone": [1553123232, 212424237 ,334234354]
+  },
+  "kennels": {
+    "company": ["company1", "company2", "company3"],
+    "rating": [1,3,5]
+  }
+
+}

@@ -1,7 +1,9 @@
 import express from "express"
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
-import {getElement, addElement, deleteElement} from './controllers/controller.js'
+import {getElement, addElement, deleteElement, generateRandomData, adoptPet } from './controllers/controller.js'
+
+
 
 const app = express();
 app.use(bodyParser.json());
@@ -13,6 +15,9 @@ mongoose.connect(db, {useNewUrlParser: true})
 app.get('/:id', getElement);
 app.post('/add', addElement);
 app.delete("/:id", deleteElement);
+
+app.get('/random', generateRandomData)
+app.post('/adopt/:owner/:pet', adoptPet)
 
 
 let port = process.env.PORT || 8088;
