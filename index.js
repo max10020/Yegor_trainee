@@ -17,7 +17,7 @@ app.post('/add', addElement);
 app.delete("/:id", deleteElement);
 
 app.get('/random', generateRandomData)
-app.post('/adopt/:owner/:pet', adoptPet)
+app.post('/adopt/:kennelOwner/:owner/:pet', adoptPet)
 
 
 let port = process.env.PORT || 8088;

@@ -5,6 +5,7 @@ const require = createRequire(import.meta.url);
 
 const data = require('../randomData/data.json');
 const toId = mongoose.Types.ObjectId;
+
 const randomData  = (array) => {
     return Math.floor(Math.random()) * array.length
 }
@@ -62,12 +63,21 @@ const generateRandomData = async (req, res)=>{
 };
 
 const adoptPet = async (req, res) =>{
+
     const owner = toId(req.params.owner);
     const pet = toId(req.params.pet);
 
-    const getPet = await Pets.findById(pet);
-    getPet.owner.push(owner);
-    getPet.save();
+    if(req.params.kennelOwner === 'owner'){
+        const getPet = await Pets.findById(pet);
+        await getPet.owner = owner;
+        getPet.save();
+    }
+    if(req.params.kennelOwner === 'kennel'){
+        const getPet = await Pets.findById(pet);
+        await getPet.kennel = owner;
+        getPet.save();
+    }
+
 
     res.send('Adopted pet')
 }
