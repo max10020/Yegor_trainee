@@ -12,14 +12,14 @@ const PetsSchema = new Schema(
 
 const OwnersSchema = new Schema({
     name: String,
-    phone: Number,
+    phone: String,
     pet: [{type: Schema.Types.ObjectId, ref: 'Pets', required: false}]
 });
 
 const KennelSchema = new Schema({
     company: String,
-    rating: Number,
-    pet: [{type: Schema.Types.ObjectId, ref: 'Pets'}]
+    rating: String,
+    pet: [{type: Schema.Types.ObjectId, ref: 'Pets', required: false}]
 });
 
 const Pets = mongoose.model('Pets', PetsSchema);
