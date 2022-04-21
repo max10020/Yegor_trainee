@@ -31,7 +31,17 @@ kennelRouter.put('/:kennel/:pet', async (req, res)=>{
 })
 
 
+kennelRouter.get('/pets/:id', async (req, res)=>{
+    try{
+        const { id } = req.params;
+        const a = await Kennel.findById(toId(id))
+            .populate({
+                path: "pet",
+            })
+        res.send(a)
+    } catch(err){res.render(`error`, {'error': err})}
 
+})
 
 
 export {kennelRouter};

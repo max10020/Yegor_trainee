@@ -22,7 +22,6 @@ ownerRouter.post('/add', async (req, res)=>{
         await new Owners(data).save();
         res.send('success');
     } catch(err){res.render('error', {error: err} ) }
-
 })
 
 ownerRouter.put('/:owner/:pet', async(req, res)=>{
@@ -34,11 +33,18 @@ ownerRouter.put('/:owner/:pet', async(req, res)=>{
         await Pets.findOneAndUpdate(toId(pet), {$push: {owner: toId(owner)}});
 
         res.send('Adopted');
-
     } catch(err){res.render('error', {error: err} ) }
 })
 
+ownerRouter.get('/pets/:id', async (req, res)=>{
+    try{
 
+        const { id } = req.params;
+        const a = await Owners.findById(toId(id))
+            .populate({ path: 'pet' });
+        res.send(a);
+    } catch(err){res.render('error', {error: err} ) }
+})
 
 
 export {ownerRouter};
