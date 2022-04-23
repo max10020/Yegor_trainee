@@ -1,8 +1,8 @@
 "use strict";
 import { Router } from "express";
-import {kennelRouter} from "./kennel/router.kennel.js";
-import {petRouter} from "./pet/router.pet.js";
-import {ownerRouter} from "./owner/router.owner.js";
+import {kennelRouter} from "./kennel/routes.kennel.js";
+import {petRouter} from "./pet/routes.pet.js";
+import {ownerRouter} from "./owner/routes.owner.js";
 
 const router = Router();
 

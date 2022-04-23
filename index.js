@@ -9,8 +9,11 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
 const db = "mongodb://localhost:27017/myDatabase";
-mongoose.connect(db, {useNewUrlParser: true});
+mongoose.connect(db, {useNewUrlParser: true}, ()=>{
+        console.log('DB connected')
+});
 
 app.use('/', router);
 app.get('/random', generateRandomData);

@@ -1,30 +1,28 @@
-"use strict";
-import {Router} from "express";
 import mongoose from "mongoose";
-import {Owners, Pets, } from "../../models/index.js";
+
+import Owners from "../../models/owner/model.owner.js";
+import Pets from "../../models/pet/model.pet.js";
 
 const toId = mongoose.Types.ObjectId;
 
-const ownerRouter = Router();
-
-ownerRouter.get('/:id', async (req,res)=>{
+const getOwner = async (req,res)=>{
     try{
         const id = req.params.id;
         const owner = await Owners.findOne(toId(id));
         res.json(owner);
-    }catch(err){res.render('error', {error: err} ) }
+    } catch(err){res.json({error: err})}
 
-})
+};
 
-ownerRouter.post('/add', async (req, res)=>{
+const addOwner = async (req, res)=>{
     try{
         const data = req.body;
         await new Owners(data).save();
         res.send('success');
-    } catch(err){res.render('error', {error: err} ) }
-})
+    } catch(err){res.json({error: err})}
+};
 
-ownerRouter.put('/:owner/:pet', async(req, res)=>{
+const adoptPet = async(req, res)=>{
     try{
         const { owner } = req.params;
         const { pet } = req.params;
@@ -33,18 +31,16 @@ ownerRouter.put('/:owner/:pet', async(req, res)=>{
         await Pets.findOneAndUpdate(toId(pet), {$push: {owner: toId(owner)}});
 
         res.send('Adopted');
-    } catch(err){res.render('error', {error: err} ) }
-})
+    } catch(err){res.json({error: err})}
+};
 
-ownerRouter.get('/pets/:id', async (req, res)=>{
+const viewPets = async (req, res)=>{
     try{
-
         const { id } = req.params;
         const a = await Owners.findById(toId(id))
             .populate({ path: 'pet' });
         res.send(a);
-    } catch(err){res.render('error', {error: err} ) }
-})
+    } catch(err){res.json({error: err})}
+};
 
-
-export {ownerRouter};
+export {viewPets, adoptPet, addOwner, getOwner}

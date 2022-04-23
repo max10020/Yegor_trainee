@@ -1,5 +1,5 @@
-import {Pets, Owners, Kennel} from "../models/index.js";
-import mongoose from "mongoose";
+import  Pets  from "../models/pet/model.pet.js";
+import  Owners  from "../models/owner/model.owner.js";
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 const data = require('../randomData/data.json');
@@ -25,9 +25,8 @@ const generateRandomData = async (req, res)=>{
         // Kennel
         const {kennels} = data;
         for await (company of kennels.company){
-            await new Kennel({company: company, rating: kennels.rating[randomData(kennels.rating)]})
+            await new Kennel({company: company, rating: kennels.rating[randomData(kennels.rating)]}).save();
         }
-
         res.send('Random data generated')
     } catch(err) {res.render({'error': err})}
 };
