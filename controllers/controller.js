@@ -5,7 +5,7 @@ const require = createRequire(import.meta.url);
 const data = require('../randomData/data.json');
 
 const handleErrors = (err, res) =>{
-    res.json({"error": err.message})
+    res.status(400).json({"error": err.message})
 }
 
 const randomData  = (array) => {
