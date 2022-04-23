@@ -5,10 +5,10 @@ const { Schema } = mongoose;
 const OwnersSchema = new Schema({
     name: {
         type: String,
-        required: [true, "name is required"]},
+        required: [true, 'field "name" is missing']},
     phone: {
         type: String,
-        required: [true, "Phone number is required"],
+        required: [true, 'field "phone" number is missing'],
         validate: {
             validator: (v)=>{
                 return /\d{3}-\d{3}-\d{4}/.test(v)

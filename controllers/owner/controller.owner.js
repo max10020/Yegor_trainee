@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-
-import Owners from "../../models/owner/model.owner.js";
-import Pets from "../../models/pet/model.pet.js";
+import { handleErrors } from "../controller.js";
+import Owners from "../../models/owner/Owner.js";
+import Pets from "../../models/pet/Pet.js";
 
 const toId = mongoose.Types.ObjectId;
 
@@ -10,7 +10,7 @@ const getOwner = async (req,res)=>{
         const id = req.params.id;
         const owner = await Owners.findOne(toId(id));
         res.json(owner);
-    } catch(err){res.json({error: err})}
+    } catch(err){ handleErrors(err, res) }
 
 };
 
@@ -19,7 +19,7 @@ const addOwner = async (req, res)=>{
         const data = req.body;
         await new Owners(data).save();
         res.send('success');
-    } catch(err){res.json({error: err})}
+    } catch(err){ handleErrors(err, res) }
 };
 
 const adoptPet = async(req, res)=>{

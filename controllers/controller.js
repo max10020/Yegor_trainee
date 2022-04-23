@@ -1,8 +1,12 @@
-import  Pets  from "../models/pet/model.pet.js";
-import  Owners  from "../models/owner/model.owner.js";
+import  Pets  from "../models/pet/Pet.js";
+import  Owners  from "../models/owner/Owner.js";
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 const data = require('../randomData/data.json');
+
+const handleErrors = (err, res) =>{
+    res.json({"error": err.message})
+}
 
 const randomData  = (array) => {
     return Math.floor(Math.random()) * array.length
@@ -32,4 +36,4 @@ const generateRandomData = async (req, res)=>{
 };
 
 
-export { generateRandomData };
+export { generateRandomData, handleErrors };
