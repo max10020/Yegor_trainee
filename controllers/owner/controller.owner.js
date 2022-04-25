@@ -20,9 +20,9 @@ const addOwner = async (req, res)=>{
         const dataKey = Object.keys(data);
 
         if(!dataKey.includes("name")){
-            res.status(400).send('"name" is missing')
+            return res.status(400).send('"name" is missing')
         } else if(!dataKey.includes("phone")){
-            res.status(400).send('"phone" is missing')
+            return res.status(400).send('"phone" is missing')
         }
 
         if(dataKey.includes("name") && typeof data.name !== "string"){
