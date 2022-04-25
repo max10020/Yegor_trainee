@@ -17,6 +17,24 @@ const getOwner = async (req,res)=>{
 const addOwner = async (req, res)=>{
     try{
         const data = req.body;
+        const dataKey = Object.keys(data);
+
+        if(!dataKey.includes("name")){
+            res.status(400).send('"name" is missing')
+        } else if(!dataKey.includes("phone")){
+            res.status(400).send('"phone" is missing')
+        }
+
+        if(dataKey.includes("name") && typeof data.name !== "string"){
+           return res.status(400).send(`Wrong value in "name". Must be a string. Your input type: ${typeof data.name}`)
+        }
+        if(dataKey.includes("phone") && typeof data.phone !== "string"){
+            return res.status(400).send(`Wrong value in "phone". Must be a string. Your input type: ${typeof data.phone}`)
+        }
+
+        if(dataKey.includes("phone") && !/\d{3}-\d{3}-\d{4}/.test(data.phone)){
+            res.status(400).send(`Wrong input in "phone". Must be like "333-333-444". Your input: ${data.phone}`)
+        }
         await new Owners(data).save();
         res.send('success');
     } catch(err){ handleErrors(err, res) }

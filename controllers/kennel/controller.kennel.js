@@ -17,6 +17,20 @@ const getKennel = async (req, res)=>{
 const addKennel = async (req, res)=>{
     try{
         const data = req.body;
+        const dataKey = Object.keys(data);
+
+        if(!dataKey.includes("company")){
+            res.status(400).send('"company" is missing');
+        } if(!dataKey.includes("rating")){
+            res.status(400).send('"rating" is missing')
+        }
+
+        if(dataKey.includes("company") && typeof data.company !== "string"){
+            res.status(400).send(`Wrong value in "company". Must be a string. Your input type: ${typeof data.company}`);
+        } else if(dataKey.includes("rating") && typeof data.rating !== "number"){
+            res.status(400).send(`Wrong value in "rating". Must be a number. Your input type: ${typeof data.rating}`);
+        }
+
         await new Kennel(data).save();
         res.send('Kennel added');
     } catch(err){handleErrors(err, res)}
