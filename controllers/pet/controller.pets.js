@@ -7,7 +7,7 @@ const toId = mongoose.Types.ObjectId;
 const getPet = async (req, res)=>{
     try{
         const id = req.params.id;
-        const pet = await Pets.findById(toId(id));
+        const pet = await Pets.findById(toId(id)).lean();
         res.json(pet);
     } catch(err){handleErrors(err, res)}
 };
@@ -33,7 +33,7 @@ const addPet = async (req, res)=>{
             return res.status(400).send(`Wrong "kind" type. Must be dog: / rabbit / cat only. Your input: ${data.kind}`)
         }
 
-        await new Pets(data).save();
+        await new Pets(data, {new: true}).save();
         res.send('Success');
     } catch(err){handleErrors(err, res)}
 };

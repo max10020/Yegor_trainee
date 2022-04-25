@@ -31,7 +31,7 @@ const addKennel = async (req, res)=>{
             return res.status(400).send(`Wrong value in "rating". Must be a number. Your input type: ${typeof data.rating}`);
         }
 
-        await new Kennel(data).save();
+        await new Kennel(data, {new: true}).save();
         res.send('Kennel added');
     } catch(err){handleErrors(err, res)}
 }
@@ -54,7 +54,7 @@ const viewPets = async (req, res)=>{
         const a = await Kennel.findById(toId(id))
             .populate({
                 path: "pet",
-            })
+            }).lean();
         res.send(a);
     } catch(err){handleErrors(err, res)}
 }

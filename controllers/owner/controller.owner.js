@@ -8,7 +8,7 @@ const toId = mongoose.Types.ObjectId;
 const getOwner = async (req,res)=>{
     try{
         const id = req.params.id;
-        const owner = await Owners.findOne(toId(id));
+        const owner = await Owners.findOne(toId(id)).lean();
         res.json(owner);
     } catch(err){ handleErrors(err, res) }
 
@@ -35,7 +35,7 @@ const addOwner = async (req, res)=>{
         if(dataKey.includes("phone") && !/\d{3}-\d{3}-\d{4}/.test(data.phone)){
             return res.status(400).send(`Wrong input in "phone". Must be like "333-333-444". Your input: ${data.phone}`)
         }
-        await new Owners(data).save();
+        await new Owners(data, {new: true}).save();
         res.send('success');
     } catch(err){ handleErrors(err, res) }
 };
@@ -56,7 +56,7 @@ const viewPets = async (req, res)=>{
     try{
         const { id } = req.params;
         const a = await Owners.findById(toId(id))
-            .populate({ path: 'pet' });
+            .populate({ path: 'pet' }).lean();
         res.send(a);
     } catch(err){res.json({error: err})}
 };
