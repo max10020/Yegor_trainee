@@ -18,19 +18,19 @@ const addPet = async (req, res)=>{
         const dataKey = Object.keys(data);
 
         if(!dataKey.includes('name')){
-            res.status(400).send('"name" is missing')
+            return res.status(400).send('"name" is missing')
         } else if (!dataKey.includes('kind')){
-            res.status(400).send('"kind" is missing');
+            return res.status(400).send('"kind" is missing');
         }
 
         if(dataKey.includes('name') && typeof data.name !== "string"){
-            res.status(400).send(`\"name\" must be a string. Your input type is:  ${typeof data.name}`);
+            return res.status(400).send(`\"name\" must be a string. Your input type is:  ${typeof data.name}`);
         } else if (dataKey.includes('kind') && typeof data.kind !== "string"){
-            res.status(400).send(`\"kind\" must be a string. Your input type is:  ${typeof data.kind}`);
+            return res.status(400).send(`\"kind\" must be a string. Your input type is:  ${typeof data.kind}`);
         }
 
         if(!["dog", "cat", "rabbit"].includes(data.kind)){
-            res.status(400).send(`Wrong "kind" type. Must be dog: / rabbit / cat only. Your input: ${data.kind}`)
+            return res.status(400).send(`Wrong "kind" type. Must be dog: / rabbit / cat only. Your input: ${data.kind}`)
         }
 
         await new Pets(data).save();

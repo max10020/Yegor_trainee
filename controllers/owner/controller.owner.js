@@ -33,7 +33,7 @@ const addOwner = async (req, res)=>{
         }
 
         if(dataKey.includes("phone") && !/\d{3}-\d{3}-\d{4}/.test(data.phone)){
-            res.status(400).send(`Wrong input in "phone". Must be like "333-333-444". Your input: ${data.phone}`)
+            return res.status(400).send(`Wrong input in "phone". Must be like "333-333-444". Your input: ${data.phone}`)
         }
         await new Owners(data).save();
         res.send('success');
