@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
 
+
 const OwnersSchema = new Schema({
     name: {
         type: String,
@@ -15,6 +16,14 @@ const OwnersSchema = new Schema({
             },
             message: props => `${props.value} is not a valid phone number`}
         },
+    username: {
+        type: String,
+        required: [true, "field 'login' is missing"]
+    },
+    password: {
+        type: String,
+        required: [true, "field 'password' is missing"]
+    },
     pet: [{type: Schema.Types.ObjectId, ref: 'Pets', required: false}]
 });
 

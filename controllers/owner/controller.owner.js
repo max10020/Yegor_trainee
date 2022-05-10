@@ -3,6 +3,8 @@ import { handleErrors } from "../controller.js";
 import Owners from "../../models/owner/Owner.js";
 import Pets from "../../models/pet/Pet.js";
 
+
+
 const toId = mongoose.Types.ObjectId;
 
 const getOwner = async (req,res)=>{
@@ -18,6 +20,7 @@ const addOwner = async (req, res)=>{
     try{
         const data = req.body;
         const dataKey = Object.keys(data);
+
 
         if(!dataKey.includes("name")){
             return res.status(400).send('"name" is missing')
@@ -35,6 +38,11 @@ const addOwner = async (req, res)=>{
         if(dataKey.includes("phone") && !/\d{3}-\d{3}-\d{4}/.test(data.phone)){
             return res.status(400).send(`Wrong input in "phone". Must be like "333-333-444". Your input: ${data.phone}`)
         }
+
+        const id = new mongoose.Types.ObjectId();
+        data._id = id;
+        data.password = btoa(data.password)
+
         await new Owners(data, {new: true}).save();
         res.send('success');
     } catch(err){ handleErrors(err, res) }
