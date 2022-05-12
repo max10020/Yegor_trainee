@@ -4,13 +4,14 @@
 import passport from "passport";
 import Owners from "../models/owner/Owner.js";
 import { BasicStrategy } from "passport-http";
+import {handleErrors} from "../controllers/controller.js";
 
 
-passport.use(new BasicStrategy({usernameField: "username", passwordField: "password"},
-    function(username, password, done) {
+passport.use('basic', new BasicStrategy({usernameField: "username", passwordField: "password"},
+    async function(username, password, done) {
         console.log('Hiii')
         const hashedPassword = btoa(password);
-        Owners.findOne({ username: username }, function (err, user) {
+        await Owners.findOne({ username: username }, function (err, user) {
             if (err) { return done(err); }
             if (!user) { return done(null, false); }
             if (user.password !== atob(hashedPassword)) { return done(null, false); }
@@ -19,4 +20,21 @@ passport.use(new BasicStrategy({usernameField: "username", passwordField: "passw
     }
 ));
 
-export {passport};
+const _userBasic = passport.authenticate('basic', {session: false});
+
+function userBasic (req, res, next) {
+    _userBasic(req, res, async (e, token) => {
+        if (e) {
+            try {
+                const err = { status: 401, serviceName: 'Authorization', message: e.message }
+                return await handleErrors(err, res)
+            } catch (e) {
+                throw Error(e)
+            }
+        } else {
+            next()
+        }
+    })
+}
+
+export {userBasic};
