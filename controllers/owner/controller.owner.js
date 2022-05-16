@@ -21,7 +21,6 @@ const addOwner = async (req, res)=>{
         const data = req.body;
         const dataKey = Object.keys(data);
 
-
         if(!dataKey.includes("name")){
             return res.status(400).send('"name" is missing')
         } else if(!dataKey.includes("phone")){
@@ -69,4 +68,11 @@ const viewPets = async (req, res)=>{
     } catch(err){res.json({error: err})}
 };
 
-export {viewPets, adoptPet, addOwner, getOwner}
+
+const auth = async (req, res, next) =>{
+    try{
+        next()
+    } catch (err){ handleErrors(err) }
+}
+
+export {viewPets, adoptPet, addOwner, getOwner, auth}

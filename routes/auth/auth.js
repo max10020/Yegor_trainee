@@ -3,12 +3,12 @@ import "../../passport/Passport.js";
 import {BasicStrategy} from "passport-http";
 import passport from "passport";
 const authRouter = Router();
-import {userBasic} from "../../passport/Passport.js";
+import {auth} from "../../controllers/owner/controller.owner.js";
+import {handleErrors} from "../../controllers/controller.js";
 
-authRouter.post('/', userBasic,(req, res)=>{
-    console.log('im here')
-    const {user} = req;
-    res.json(user)
+authRouter.post('/', passport.authenticate('basic', { session: false }), (req, res)=>{
+    console.log(req)
 })
 
 export {authRouter}
+

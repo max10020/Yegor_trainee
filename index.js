@@ -4,12 +4,11 @@ import mongoose from "mongoose";
 import { generateRandomData } from './controllers/controller.js';
 import { router } from './routes/index.js';
 import headerAPI from "./midleware/index.js";
-import "./passport/Passport.js"
 
 
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
-
+import "./passport/Passport.js"
 import passport from "passport"
 const basicStrategy = require("passport-ibm-connections-basic").Strategy;
 // const bcrypt = require('bcryptjs')
@@ -17,9 +16,9 @@ const basicStrategy = require("passport-ibm-connections-basic").Strategy;
 
 const app = express();
 
-app.use(passport.initialize()) //Вызывает пасспорт на каждый запрос
+// app.use(passport.initialize()) //Вызывает пасспорт на каждый запрос
 
-
+app.use(passport.initialize())
 
 // app.post('/hello', (req,res)=>{
 //         console.log(req.session)
