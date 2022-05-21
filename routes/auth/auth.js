@@ -7,7 +7,7 @@ import {auth} from "../../controllers/owner/controller.owner.js";
 import {handleErrors} from "../../controllers/controller.js";
 
 authRouter.post('/', passport.authenticate('basic', { session: false }), (req, res)=>{
-    console.log(req)
+    console.log('Oh yeah! It works!!!!!!!')
 })
 
 export {authRouter}

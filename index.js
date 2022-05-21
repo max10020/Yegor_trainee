@@ -16,16 +16,8 @@ const basicStrategy = require("passport-ibm-connections-basic").Strategy;
 
 const app = express();
 
-// app.use(passport.initialize()) //Вызывает пасспорт на каждый запрос
 
 app.use(passport.initialize())
-
-// app.post('/hello', (req,res)=>{
-//         console.log(req.session)
-//         res.send(req.session)
-// })
-
-
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
