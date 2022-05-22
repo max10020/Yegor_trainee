@@ -2,7 +2,10 @@ import mongoose from "mongoose";
 import { handleErrors } from "../controller.js";
 import Owners from "../../models/owner/Owner.js";
 import Pets from "../../models/pet/Pet.js";
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
 
+const jwt = require('jsonwebtoken');
 
 
 const toId = mongoose.Types.ObjectId;
@@ -40,10 +43,11 @@ const addOwner = async (req, res)=>{
 
         const id = new mongoose.Types.ObjectId();
         data._id = id;
-        data.password = btoa(data.password)
+        const accessToken = jwt.sign(data.username, "secret")
+        data.token = accessToken;
 
         await new Owners(data, {new: true}).save();
-        res.send('success');
+        res.json(data);
     } catch(err){ handleErrors(err, res) }
 };
 
@@ -69,10 +73,5 @@ const viewPets = async (req, res)=>{
 };
 
 
-const auth = async (req, res, next) =>{
-    try{
-        next()
-    } catch (err){ handleErrors(err) }
-}
 
-export {viewPets, adoptPet, addOwner, getOwner, auth}
+export {viewPets, adoptPet, addOwner, getOwner}

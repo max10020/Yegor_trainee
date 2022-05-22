@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-
 const { Schema } = mongoose;
 
 
@@ -23,6 +22,9 @@ const OwnersSchema = new Schema({
     password: {
         type: String,
         required: [true, "field 'password' is missing"]
+    },
+    token: {
+        type: String
     },
     pet: [{type: Schema.Types.ObjectId, ref: 'Pets', required: false}]
 });
